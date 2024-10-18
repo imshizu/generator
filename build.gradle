@@ -1,0 +1,83 @@
+plugins {
+    id('java')
+    id('com.github.johnrengelman.shadow') version '8.1.1'
+}
+
+group = 'eu.altshizu'
+version = '1.0'
+
+compileJava {
+    options.compilerArgs << '-parameters'
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        name = "spigotmc-repo"
+        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
+    maven {
+        url {
+            uri("https://storehouse.okaeri.eu/repository/maven-releases/")
+        }
+    }
+}
+
+dependencies {
+    implementation('org.yaml:snakeyaml:2.2') {
+        version {
+            strictly '2.2'
+        }
+    }
+
+    implementation 'eu.okaeri:okaeri-commands-bukkit:0.9.5'
+    implementation 'eu.okaeri:okaeri-platform-bukkit:0.4.19'
+    implementation 'eu.okaeri:okaeri-configs-yaml-snakeyaml:5.0.1'
+    implementation'com.j256.ormlite:ormlite-jdbc:6.1'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    compileOnly "org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT"
+}
+
+def targetJavaVersion = 8
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release.set(targetJavaVersion)
+    }
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
+shadowJar {
+    relocate('eu.okaeri.commands', 'eu.altshizu.generator.libs.cmd')
+    relocate('eu.okaeri.snakeyaml', 'eu.altshizu.generator.libs.yaml')
+    relocate('eu.okaeri', 'eu.altshizu.generator.libs.okaeri')
+}
+
+build.dependsOn shadowJar
