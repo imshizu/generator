@@ -11,8 +11,10 @@ import lombok.Setter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.Serializable;
+
 @Getter @Setter
-public class Generator {
+public class Generator implements Serializable {
 
     /**
      * The tier of the generator.
