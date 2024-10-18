@@ -17,6 +17,7 @@ import java.util.Map;
  */
 @Getter @Setter
 @Configuration(path = "gens.yml", provider = YamlSnakeYamlConfigurer.class)
+@SuppressWarnings("FieldMayBeFinal")
 public class GensConfig extends OkaeriConfig {
 
     /**

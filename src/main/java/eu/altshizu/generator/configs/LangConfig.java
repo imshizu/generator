@@ -1,5 +1,6 @@
 package eu.altshizu.generator.configs;
 
+import eu.okaeri.configs.yaml.snakeyaml.YamlSnakeYamlConfigurer;
 import eu.okaeri.i18n.configs.LocaleConfig;
 import eu.okaeri.platform.core.annotation.Messages;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import lombok.Getter;
  */
 @Getter
 @SuppressWarnings("FieldMayBeFinal")
-@Messages(path = "lang")
+@Messages(path = "lang", defaultLocale = "dk", provider = YamlSnakeYamlConfigurer.class)
 public class LangConfig extends LocaleConfig {
     private String prefix = "&6[Generator]";
 }

@@ -1,14 +1,14 @@
 plugins {
-    id('java')
-    id('com.github.johnrengelman.shadow') version '8.1.1'
+    id 'java'
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = 'eu.altshizu'
-version = '1.0'
+version = '1.0.1'
 
 compileJava {
     options.compilerArgs << '-parameters'
-    options.encoding = 'UTF-8'
+    options.encoding = 'utf-8'
 }
 
 repositories {
@@ -23,10 +23,9 @@ repositories {
         url = "https://oss.sonatype.org/content/groups/public/"
     }
     maven {
-        url {
-            uri("https://storehouse.okaeri.eu/repository/maven-releases/")
-        }
+        url = "https://jitpack.io"
     }
+    maven { url { uri("https://storehouse.okaeri.eu/repository/maven-releases/") } }
 }
 
 dependencies {
@@ -75,9 +74,12 @@ processResources {
 }
 
 shadowJar {
-    relocate('eu.okaeri.commands', 'eu.altshizu.generator.libs.cmd')
-    relocate('eu.okaeri.snakeyaml', 'eu.altshizu.generator.libs.yaml')
-    relocate('eu.okaeri', 'eu.altshizu.generator.libs.okaeri')
+
+    relocate("eu.okaeri.commands", "eu.altshizu.generator.libs.cmd")
+    relocate("org.yaml.snakeyaml", "eu.altshizu.generator.libs.yaml")
+    relocate("eu.okaeri", "eu.altshizu.generator.libs.okaeri")
 }
 
-build.dependsOn shadowJar
+build {
+    dependsOn 'shadowJar'
+}
