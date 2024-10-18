@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import java.io.Serializable;
 
 @Getter @Setter
-public class Generator implements Serializable {
+public class Global implements Serializable {
 
     /**
      * The tier of the generator.
@@ -38,7 +38,7 @@ public class Generator implements Serializable {
      * @param material the material used in the generator
      * @param data the data relevant to the generator
      */
-    public Generator(int tier, Material material, short data) {
+    public Global(int tier, Material material, short data) {
         this.tier = tier;
         this.material = material;
         this.data = data;

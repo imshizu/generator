@@ -1,6 +1,6 @@
 package eu.altshizu.generator.configs;
 
-import eu.altshizu.generator.objects.Generator;
+import eu.altshizu.generator.objects.Global;
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.yaml.snakeyaml.YamlSnakeYamlConfigurer;
 import eu.okaeri.platform.core.annotation.Configuration;
@@ -23,8 +23,8 @@ public class GensConfig extends OkaeriConfig {
     /**
      * A map containing all the generators.
      */
-    public Map<Integer, Generator> generators = new HashMap<Integer, Generator>() {{
-        put(1, new Generator(1, Material.DIRT, (short) 0));
-        put(2, new Generator(2, Material.GRASS, (short) 0));
+    public Map<Integer, Global> generators = new HashMap<Integer, Global>() {{
+        put(1, new Global(1, Material.DIRT, (short) 0));
+        put(2, new Global(2, Material.GRASS, (short) 0));
     }};
 }
