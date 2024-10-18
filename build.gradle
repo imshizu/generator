@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'eu.altshizu'
-version = '1.0.2'
+version = '1.0.3'
 
 compileJava {
     options.compilerArgs << '-parameters'
@@ -74,12 +74,9 @@ processResources {
 }
 
 shadowJar {
-
     relocate("eu.okaeri.commands", "eu.altshizu.generator.libs.cmd")
     relocate("org.yaml.snakeyaml", "eu.altshizu.generator.libs.yaml")
     relocate("eu.okaeri", "eu.altshizu.generator.libs.okaeri")
 }
 
-build {
-    dependsOn 'shadowJar'
-}
+build.dependsOn shadowJar

@@ -25,5 +25,6 @@ public class GensConfig extends OkaeriConfig {
      */
     public Map<Integer, Generator> generators = new HashMap<Integer, Generator>() {{
         put(1, new Generator(1, Material.DIRT, (short) 0));
+        put(2, new Generator(2, Material.GRASS, (short) 0));
     }};
 }

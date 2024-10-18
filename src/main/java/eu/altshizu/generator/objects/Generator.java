@@ -19,7 +19,7 @@ public class Generator implements Serializable {
     /**
      * The tier of the generator.
      */
-    private int tier;
+    private transient int tier;
 
     /**
      * The material used in the generator.
