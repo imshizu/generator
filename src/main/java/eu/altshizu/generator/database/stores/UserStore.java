@@ -1,22 +1,38 @@
 package eu.altshizu.generator.database.stores;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
 import eu.altshizu.generator.database.BaseStore;
 import eu.altshizu.generator.database.StoreManager;
 import eu.altshizu.generator.objects.Generator;
 import eu.altshizu.generator.objects.User;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+/**
+ * This is a user store class that manages various operations related to Users.
+ */
 public class UserStore extends BaseStore<Integer, User> {
     private final StoreManager stores;
 
+    /**
+     * Creates a new UserStore instance.
+     *
+     * @param dao     DAO for User
+     * @param stores  store manager instance
+     */
     public UserStore(Dao<User, Integer> dao, StoreManager stores) {
         super(dao, stores);
         this.stores = stores;
     }
 
+    /**
+     * Gets a User for a player, or creates and persists a new one if none already exists.
+     *
+     * @param player  instance of the player for which we want to retrieve or create the user
+     * @return        the retrieved or newly created user
+     */
     public User getUser(Player player) {
         User user = new User(player.getName(), 5, 1, 1, 0, player.getUniqueId(), 0);
         User created = getOrPersist("uuid", user.getUuid(), user);
@@ -25,12 +41,35 @@ public class UserStore extends BaseStore<Integer, User> {
         return created;
     }
 
+    /**
+     * Adds a generator to a user.
+     *
+     * @param user      the user to whom the generator should be added
+     * @param tier      the tier of the generator
+     * @param location  the location of the generator
+     */
     public void addGenerator(User user, int tier, Location location) {
-        Generator generator = new Generator(user, tier, location);
+        try {
+            Dao<Generator, Integer> generatorDao = stores.getGeneratorStore().getDao();
+            QueryBuilder<Generator, Integer> queryBuilder = generatorDao.queryBuilder();
+            Where<Generator, Integer> where = queryBuilder.where();
+            where.eq("user", user).and().eq("tier", tier);
 
-        stores.getGeneratorStore().persist(generator);
+            Generator generator = generatorDao.queryForFirst(queryBuilder.prepare());
+            if(generator != null) {
+                generator.setAmount(generator.getAmount() + 1);
+                generatorDao.update(generator);
+            } else {
+                generator = new Generator(user, tier, location);
+                generator.setAmount(1);
+                stores.getGeneratorStore().persist(generator);
+            }
 
-        user.setUsedSlots(user.getUsedSlots() + 1);
-        persist(user);
+            user.setUsedSlots(user.getUsedSlots() + 1);
+            persist(user);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 }
