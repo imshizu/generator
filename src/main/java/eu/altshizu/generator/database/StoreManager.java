@@ -16,6 +16,7 @@ import eu.okaeri.injector.annotation.PostConstruct;
 import eu.okaeri.platform.core.annotation.Component;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import org.bukkit.Bukkit;
 
 import java.io.File;
 
@@ -26,7 +27,7 @@ import java.io.File;
 @Getter
 public class StoreManager {
 
-    private @Inject final Generator plugin;
+    private final @Inject Generator plugin;
 
     private UserStore userStore;
     private GeneratorStore generatorStore;
@@ -51,9 +52,10 @@ public class StoreManager {
         try {
             connectionSource = new JdbcConnectionSource(getConnectionUrl());
 
-            TableUtils.createTableIfNotExists(connectionSource, UserStore.class);
-            TableUtils.createTableIfNotExists(connectionSource, GeneratorStore.class);
-        } catch (Exception ignored) {
+            TableUtils.createTableIfNotExists(connectionSource, User.class);
+            TableUtils.createTableIfNotExists(connectionSource, eu.altshizu.generator.objects.Generator.class);
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
 
         this.userStore = new UserStore(DaoManager.createDao(connectionSource, User.class), this);
