@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 /**
  * A class representing a user.
  * Contains information about user's multiplier, experience and level.
@@ -27,6 +29,12 @@ public class User extends BaseDaoEnabled<User, Integer> {
      */
     @DatabaseField(columnName = "name")
     private String name;
+
+    /**
+     * The UUID of the user.
+     */
+    @DatabaseField(columnName = "uuid")
+    private UUID uuid;
 
     /**
      * The amount of slots the user has unlocked.
@@ -64,12 +72,13 @@ public class User extends BaseDaoEnabled<User, Integer> {
     @DatabaseField(columnName = "sellchest")
     private String sellchest;
 
-    public User(String name, int slots, double multiplier, int level, int usedSlots, double xp) {
+    public User(String name, int slots, double multiplier, int level, int usedSlots, UUID uuid, double xp) {
         this.name = name;
         this.slots = slots;
         this.multiplier = multiplier;
         this.level = level;
         this.usedSlots = usedSlots;
+        this.uuid = uuid;
         this.xp = xp;
     }
 
