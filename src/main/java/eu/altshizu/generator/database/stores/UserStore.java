@@ -51,16 +51,15 @@ public class UserStore extends BaseStore<Integer, User> {
     public void addGenerator(User user, int tier, Location location) {
         try {
             Dao<Generator, Integer> generatorDao = stores.getGeneratorStore().getDao();
-            QueryBuilder<Generator, Integer> queryBuilder = generatorDao.queryBuilder();
-            Where<Generator, Integer> where = queryBuilder.where();
-            where.eq("user", user).and().eq("tier", tier);
-
-            Generator generator = generatorDao.queryForFirst(queryBuilder.prepare());
-            if(generator != null) {
-                generator.setAmount(generator.getAmount() + 1);
-                generatorDao.update(generator);
+            if (hasGeneratorOfTier(user, tier)) {
+                Generator generator = generatorDao.queryBuilder().where()
+                        .eq("user", user).and().eq("tier", tier).queryForFirst();
+                if (generator != null) {
+                    generator.setAmount(generator.getAmount() + 1);
+                    generatorDao.update(generator);
+                }
             } else {
-                generator = new Generator(user, tier, location);
+                Generator generator = new Generator(user, tier, location);
                 generator.setAmount(1);
                 stores.getGeneratorStore().persist(generator);
             }
@@ -70,6 +69,27 @@ public class UserStore extends BaseStore<Integer, User> {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
 
+    /**
+     * Check if a user has a generator of a specific tier.
+     *
+     * @param user      the user to check
+     * @param tier      the tier of the generator to check for
+     * @return          true if the user has a generator of the given tier, false otherwise
+     */
+    public boolean hasGeneratorOfTier(User user, int tier) {
+        try {
+            Dao<Generator, Integer> generatorDao = stores.getGeneratorStore().getDao();
+            QueryBuilder<Generator, Integer> queryBuilder = generatorDao.queryBuilder();
+            Where<Generator, Integer> where = queryBuilder.where();
+            where.eq("user", user).and().eq("tier", tier);
+
+            Generator generator = generatorDao.queryForFirst(queryBuilder.prepare());
+            return generator != null;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 }

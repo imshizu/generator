@@ -4,6 +4,7 @@ import eu.altshizu.generator.database.StoreManager;
 import eu.altshizu.generator.objects.User;
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.core.annotation.Component;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,13 +19,20 @@ public class GeneratorPlaceEvent implements Listener {
         Player player = event.getPlayer();
         User user = stores.getUserStore().getUser(player);
 
-        if(user.getUsedSlots() >= user.getSlots()) {
+        if (user.getUsedSlots() >= user.getSlots()) {
             player.sendMessage("You have reached the maximum amount of generators you can place.");
             event.setCancelled(true);
             return;
         }
 
-        stores.getUserStore().addGenerator(user, 1, event.getBlock().getLocation());
-        player.sendMessage("Generator placed!");
+        Location location = event.getBlock().getLocation();
+
+        if (stores.getUserStore().hasGeneratorOfTier(user, 1)) {
+            stores.getUserStore().addGenerator(user, 1, location);
+            event.setCancelled(true);
+            return;
+        }
+
+        stores.getUserStore().addGenerator(user, 1, location);
     }
 }
