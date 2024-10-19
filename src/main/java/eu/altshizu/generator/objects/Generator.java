@@ -6,11 +6,13 @@ import com.j256.ormlite.misc.BaseDaoEnabled;
 import com.j256.ormlite.table.DatabaseTable;
 import eu.altshizu.generator.utils.Locations;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bukkit.Location;
 
 @Getter @Setter
 @DatabaseTable(tableName = "user_generators")
+@NoArgsConstructor
 public class Generator extends BaseDaoEnabled<Generator, Integer> {
 
     @DatabaseField(generatedId = true, columnName = "id")
@@ -27,9 +29,6 @@ public class Generator extends BaseDaoEnabled<Generator, Integer> {
 
     @DatabaseField(columnName = "location")
     private String location;
-
-    public Generator() {
-    }
 
     public Generator(User user, int tier, Location location) {
         this.user = user;
