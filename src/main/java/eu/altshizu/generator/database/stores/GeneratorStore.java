@@ -12,7 +12,6 @@ import org.bukkit.Location;
 import java.util.Optional;
 
 public class GeneratorStore extends BaseStore<Integer, Generator> {
-    private StoreManager stores;
     private GensConfig gensConfig;
 
     public GeneratorStore(Dao<Generator, Integer> dao, StoreManager stores) {
