@@ -23,6 +23,12 @@ public class User extends BaseDaoEnabled<User, Integer> {
     private int id;
 
     /**
+     * The name of the user.
+     */
+    @DatabaseField(columnName = "name")
+    private String name;
+
+    /**
      * The amount of slots the user has unlocked.
      */
     @DatabaseField(columnName = "slots")
@@ -58,7 +64,8 @@ public class User extends BaseDaoEnabled<User, Integer> {
     @DatabaseField(columnName = "sellchest")
     private String sellchest;
 
-    public User(int slots, double multiplier, int level, int usedSlots, double xp) {
+    public User(String name, int slots, double multiplier, int level, int usedSlots, double xp) {
+        this.name = name;
         this.slots = slots;
         this.multiplier = multiplier;
         this.level = level;
