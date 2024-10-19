@@ -5,11 +5,13 @@ import eu.altshizu.generator.database.BaseStore;
 import eu.altshizu.generator.database.StoreManager;
 import eu.altshizu.generator.objects.Generator;
 import eu.altshizu.generator.objects.User;
+import eu.okaeri.injector.annotation.Inject;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class UserStore extends BaseStore<Integer, User> {
-    private StoreManager stores;
+    private @Inject StoreManager stores;
 
     public UserStore(Dao<User, Integer> dao, StoreManager stores) {
         super(dao, stores);
@@ -25,7 +27,10 @@ public class UserStore extends BaseStore<Integer, User> {
 
     public void addGenerator(User user, int tier, Location location) {
         Generator generator = new Generator(user, tier, location);
+        Bukkit.broadcastMessage("Stores: " + stores);
         stores.getGeneratorStore().persist(generator);
+
+        user.setUsedSlots(user.getUsedSlots() + 1);
         persist(user);
     }
 }

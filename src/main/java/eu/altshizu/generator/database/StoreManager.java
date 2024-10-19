@@ -16,15 +16,13 @@ import eu.okaeri.injector.annotation.PostConstruct;
 import eu.okaeri.platform.core.annotation.Component;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import org.bukkit.Bukkit;
 
 import java.io.File;
 
 /**
  * Manages the database connection and data access objects (DAOs) for the application.
  */
-@Component
-@Getter
+@Component @Getter
 public class StoreManager {
 
     private final @Inject Generator plugin;
