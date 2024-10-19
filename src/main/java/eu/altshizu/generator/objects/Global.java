@@ -19,7 +19,7 @@ public class Global implements Serializable {
     /**
      * The tier of the generator.
      */
-    private transient int tier;
+    private int tier;
 
     /**
      * The material used in the generator.
