@@ -19,37 +19,37 @@ public class User extends BaseDaoEnabled<User, Integer> {
     /**
      * The id of the user.
      */
-    @DatabaseField(canBeNull = false, generatedId = true, columnName = "id")
+    @DatabaseField(generatedId = true, columnName = "id")
     private int id;
 
     /**
      * The amount of slots the user has unlocked.
      */
-    @DatabaseField(canBeNull = false, columnName = "slots")
+    @DatabaseField(columnName = "slots")
     private int slots;
 
     /**
      * The amount of multiplier the user has.
      */
-    @DatabaseField(canBeNull = false, columnName = "multiplier")
+    @DatabaseField(columnName = "multiplier")
     private double multiplier;
 
     /**
      * The level of the user.
      */
-    @DatabaseField(canBeNull = false, columnName = "level")
+    @DatabaseField(columnName = "level")
     private int level;
 
     /**
      * The amount of used slots (aka placed generators) the user has.
      */
-    @DatabaseField(canBeNull = false, columnName = "used_slots")
+    @DatabaseField(columnName = "used_slots")
     private int usedSlots;
 
     /**
      * The experience of the user.
      */
-    @DatabaseField(canBeNull = false, columnName = "xp")
+    @DatabaseField(columnName = "xp")
     private double xp;
 
     /**
