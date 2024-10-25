@@ -27,6 +27,7 @@ public class GeneratorPlaceEvent implements Listener {
         int tier = Item.getTier(item);
         if(!event.canBuild()) return;
 
+        if(tier == -1) return;
         if (user.getUsedSlots() >= user.getSlots()) {
             i18n.get(langConfig.getMaxGenerators())
                     .with("prefix", i18n.get(player, langConfig.getPrefix()).apply())
