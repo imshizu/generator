@@ -1,5 +1,6 @@
 package eu.altshizu.generator.configs;
 
+import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.yaml.snakeyaml.YamlSnakeYamlConfigurer;
 import eu.okaeri.i18n.configs.LocaleConfig;
 import eu.okaeri.platform.core.annotation.Messages;
@@ -13,27 +14,25 @@ import lombok.Getter;
 @SuppressWarnings("FieldMayBeFinal")
 @Messages(path = "lang", defaultLocale = "dk", provider = YamlSnakeYamlConfigurer.class)
 public class LangConfig extends LocaleConfig {
+    private String reloadStart = "{prefix} &7Genindlæser...";
+    private String reloadEnd = "{prefix} &aDu genindlæste pluginnet successfuldt! &2({ms}ms)";
+
+    @Comment("Command messages")
     private String prefix = "&6[Generator]";
     private String noPermission = "{prefix} &7Du har ikke adgang til denne kommando.";
-    
-    /**
-     * Messages for the generator command is stored here.
-     */
+
+    @Comment("Generator command messages")
     private String addGenerator = "{prefix} &7Du tilføjede en ny generator. (Tier {tier})";
     private String holdItem = "{prefix} &7Du skal holde et item i hånden.";
     private String removeGenerator = "{prefix} &7Du fjernede &e{tier} &7generator.";
     private String generatorNotFound = "{prefix} &7Denne generator findes ikke.";
     private String receiveGenerator = "{prefix} Du modtog &e{tier} &7generator.";
 
-    /**
-     * Messages for the generator shop is stored here.
-     */
+    @Comment("Generator shop messages")
     private String buyGenerator = "{prefix} &7Du købte en &etier {tier} generator&7.";
     private String notEnoughMoney = "{prefix} &7Du mangler &c${money}&7.";
 
-    /**
-     * Messages for the generator events is stored here.
-     */
+    @Comment("Generator event messages")
     private String placedSellchest = "{prefix} &7Du placerede en &esælgekiste&7.";
     private String addedToStack = "{prefix} &7Du tilføjede en generator til stacken. ({amount} i alt)";
     private String placedGenerator = "{prefix} &7Du placerede en &etier {tier} generator&7.";
