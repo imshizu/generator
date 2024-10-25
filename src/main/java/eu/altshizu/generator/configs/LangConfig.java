@@ -22,7 +22,6 @@ public class LangConfig extends LocaleConfig {
             "Command messages"
     })
     private String prefix = "&6[Generator]";
-    private String noPermission = "{prefix} &7Du har ikke adgang til denne kommando.";
 
     @Comment({
             "",
@@ -32,7 +31,7 @@ public class LangConfig extends LocaleConfig {
     private String holdItem = "{prefix} &7Du skal holde et item i hånden.";
     private String removeGenerator = "{prefix} &7Du fjernede &e{tier} &7generator.";
     private String generatorNotFound = "{prefix} &7Denne generator findes ikke.";
-    private String receiveGenerator = "{prefix} Du modtog &e{tier} &7generator.";
+    private String receiveGenerator = "{prefix} &7Du modtog &e{tier} &7generator.";
 
     @Comment({
             "",
