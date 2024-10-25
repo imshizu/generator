@@ -31,7 +31,8 @@ public class LangConfig extends LocaleConfig {
     private String holdItem = "{prefix} &7Du skal holde et item i hånden.";
     private String removeGenerator = "{prefix} &7Du fjernede &e{tier} &7generator.";
     private String generatorNotFound = "{prefix} &7Denne generator findes ikke.";
-    private String receiveGenerator = "{prefix} &7Du modtog &e{tier} &7generator.";
+    private String receiveGenerator = "{prefix} &7Du modtog en &e{tier} &7generator.";
+    private String gaveGenerator = "{prefix} &7Du gav en &etier {tier} &7generator til &e{target}&7.";
 
     @Comment({
             "",
@@ -48,9 +49,9 @@ public class LangConfig extends LocaleConfig {
     private String addedToStack = "{prefix} &7Du tilføjede en generator til stacken. ({amount} i alt)";
     private String placedGenerator = "{prefix} &7Du placerede en &etier {tier} generator&7.";
     private String maxGenerators = "{prefix} &7Du har ikke plads til flere generators.";
-    private String sellSuccess = "{prefix} &7Du indsamlet &a${money} &7& &b{xp} XP&7.";
+    private String sellSuccess = "{prefix} &7Du indsamlede &a${money} &7& &b{xp} XP&7.";
     private String sellFail = "{prefix} &7Der er ikke noget i denne sælgekiste.";
-    private String upgradeSuccess = "{prefix} &7Du opgraderet &e{amount}x tier {tier} generator&7 for &a${money}&7.";
+    private String upgradeSuccess = "{prefix} &7Du opgraderede &e{amount}x tier {tier} generator&7 for &a${money}&7.";
     private String upgradeFail = "{prefix} &7Du mangler &c${money}&7.";
     private String upgradeMax = "{prefix} &7Du har den bedste generator tier.";
     private String notYourGenerator = "{prefix} &7Du ejer ikke denne generator. ({owner})";
