@@ -15,21 +15,7 @@ import lombok.Getter;
 public class LangConfig extends LocaleConfig {
     private String prefix = "&6[Generator]";
     private String noPermission = "{prefix} &7Du har ikke adgang til denne kommando.";
-
-    /**
-     * Default & default admin message for the plugin is stored here.
-     */
-    private String defaultMessage =
-            "{prefix}\n" +
-            "&7/gen list &fviser alle generators\n" +
-            "&7/gen shop &fåbner shop med generators\n";
-
-    private String adminMessage =
-            "&7/gen tilføj &ftilføjer en generator\n" +
-            "&7/gen fjern <tier> &ffjerner en generator\n" +
-            "&7/gen giv <tier> &fgiver en bestemt generator\n" +
-            "&7/gen reload &fgenindlæser pluginnet\n";
-
+    
     /**
      * Messages for the generator command is stored here.
      */
