@@ -28,14 +28,18 @@ public class GeneratorPlaceEvent implements Listener {
         if(!event.canBuild()) return;
 
         if (user.getUsedSlots() >= user.getSlots()) {
-            i18n.get(langConfig.getMaxGenerators()).sendTo(player);
+            i18n.get(langConfig.getMaxGenerators())
+                    .with("prefix", i18n.get(player, langConfig.getPrefix()).apply())
+                    .sendTo(player);
             event.setCancelled(true);
         } else {
             if (stores.getUserStore().hasGeneratorOfTier(user, tier)) {
                 event.setCancelled(true);
             }
             stores.getUserStore().addGenerator(user, tier, event.getBlock().getLocation());
-            i18n.get(langConfig.getPlacedGenerator()).with("tier", tier).sendTo(player);
+            i18n.get(langConfig.getPlacedGenerator())
+                    .with("prefix", i18n.get(player, langConfig.getPrefix()).apply())
+                    .with("tier", tier).sendTo(player);
         }
     }
 }
