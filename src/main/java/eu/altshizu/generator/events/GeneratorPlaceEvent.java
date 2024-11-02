@@ -3,7 +3,7 @@ package eu.altshizu.generator.events;
 import eu.altshizu.generator.configs.LangConfig;
 import eu.altshizu.generator.database.StoreManager;
 import eu.altshizu.generator.objects.User;
-import eu.altshizu.generator.utils.Item;
+import eu.altshizu.generator.utils.Utilities;
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.bukkit.i18n.BI18n;
 import eu.okaeri.platform.core.annotation.Component;
@@ -24,7 +24,7 @@ public class GeneratorPlaceEvent implements Listener {
         ItemStack item = event.getItemInHand();
         Player player = event.getPlayer();
         User user = stores.getUserStore().getUser(player);
-        int tier = Item.getTier(item);
+        int tier = Utilities.getTier(item);
         if(!event.canBuild()) return;
 
         if(tier == -1) return;
