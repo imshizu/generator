@@ -2,4 +2,5 @@ name: Generator
 version: '${version}'
 main: eu.imshizu.generator.Generator
 author: Mikkel
+website: https://github.com/imshizu/generator
 description: A generator plugin built mainly for SuperAwesome servers.
