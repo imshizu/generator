@@ -3,7 +3,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
-group = 'eu.altshizu'
+group = 'eu.imshizu'
 version = '1.0.18'
 
 compileJava {
@@ -74,9 +74,9 @@ processResources {
 }
 
 shadowJar {
-    relocate("eu.okaeri.commands", "eu.altshizu.generator.libs.cmd")
-    relocate("org.yaml.snakeyaml", "eu.altshizu.generator.libs.yaml")
-    relocate("eu.okaeri", "eu.altshizu.generator.libs.okaeri")
+    relocate("eu.okaeri.commands", "eu.imshizu.generator.libs.cmd")
+    relocate("org.yaml.snakeyaml", "eu.imshizu.generator.libs.yaml")
+    relocate("eu.okaeri", "eu.imshizu.generator.libs.okaeri")
 }
 
 build.dependsOn shadowJar
