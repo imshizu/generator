@@ -1,5 +1,6 @@
 package eu.imshizu.generator.commands;
 
+import eu.imshizu.generator.configs.Config;
 import eu.imshizu.generator.configs.GensConfig;
 import eu.imshizu.generator.configs.LangConfig;
 import eu.okaeri.commands.annotation.*;
@@ -18,6 +19,7 @@ public class GenCommand implements CommandService {
     private @Inject("lang") BI18n i18n;
     private @Inject LangConfig langConfig;
     private @Inject GensConfig gensConfig;
+    private @Inject Config config;
 
     @Executor
     public void __(@Context Player player) {
@@ -31,6 +33,7 @@ public class GenCommand implements CommandService {
                 .with("prefix", i18n.get(player, langConfig.getPrefix()).apply())
                 .sendTo(player);
         i18n.load();
+        config.load();
         gensConfig.load();
         i18n.get(langConfig.getReloadEnd())
                 .with("prefix", i18n.get(player, langConfig.getPrefix()).apply())

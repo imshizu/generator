@@ -3,10 +3,12 @@ package eu.imshizu.generator.database.stores;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
+import eu.imshizu.generator.configs.Config;
 import eu.imshizu.generator.database.BaseStore;
 import eu.imshizu.generator.database.StoreManager;
 import eu.imshizu.generator.objects.Generator;
 import eu.imshizu.generator.objects.User;
+import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -15,6 +17,7 @@ import org.bukkit.entity.Player;
  */
 public class UserStore extends BaseStore<Integer, User> {
     private final StoreManager stores;
+    private final @Getter Config config;
 
     /**
      * Creates a new UserStore instance.
@@ -22,9 +25,10 @@ public class UserStore extends BaseStore<Integer, User> {
      * @param dao     DAO for User
      * @param stores  store manager instance
      */
-    public UserStore(Dao<User, Integer> dao, StoreManager stores) {
+    public UserStore(Dao<User, Integer> dao, StoreManager stores, Config config) {
         super(dao, stores);
         this.stores = stores;
+        this.config = config;
     }
 
     /**
@@ -34,7 +38,7 @@ public class UserStore extends BaseStore<Integer, User> {
      * @return        the retrieved or newly created user
      */
     public User getUser(Player player) {
-        User user = new User(player.getName(), 5, 1, 1, 0, player.getUniqueId(), 0);
+        User user = new User(player.getName(), config.getSlots(), config.getMultiplier(), 1, 0, player.getUniqueId(), 0);
         User created = getOrPersist("uuid", user.getUuid(), user);
         created.setName(player.getName());
         persist(created);

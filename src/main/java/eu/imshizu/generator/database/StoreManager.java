@@ -8,6 +8,7 @@ import com.j256.ormlite.logger.LoggerFactory;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import eu.imshizu.generator.Generator;
+import eu.imshizu.generator.configs.Config;
 import eu.imshizu.generator.configs.GensConfig;
 import eu.imshizu.generator.database.stores.GeneratorStore;
 import eu.imshizu.generator.database.stores.UserStore;
@@ -28,6 +29,7 @@ public class StoreManager {
 
     private final @Inject Generator plugin;
     private final @Inject GensConfig gensConfig;
+    private final @Inject Config config;
 
     private UserStore userStore;
     private GeneratorStore generatorStore;
@@ -35,9 +37,10 @@ public class StoreManager {
     private @Getter ConnectionSource connectionSource;
 
 
-    public StoreManager(@Inject Generator plugin, @Inject GensConfig gensConfig) {
+    public StoreManager(@Inject Generator plugin, @Inject GensConfig gensConfig, @Inject Config config) {
         this.plugin = plugin;
         this.gensConfig = gensConfig;
+        this.config = config;
     }
 
     /**
@@ -59,7 +62,7 @@ public class StoreManager {
             exception.printStackTrace();
         }
 
-        this.userStore = new UserStore(DaoManager.createDao(connectionSource, User.class), this);
+        this.userStore = new UserStore(DaoManager.createDao(connectionSource, User.class), this, config);
         this.generatorStore = new GeneratorStore(DaoManager.createDao(connectionSource, eu.imshizu.generator.objects.Generator.class), this, gensConfig);
     }
 
