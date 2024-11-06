@@ -36,6 +36,7 @@ public class GeneratorPlaceEvent implements Listener {
         } else {
             if (stores.getUserStore().hasGeneratorOfTier(user, tier)) {
                 event.setCancelled(true);
+                Utilities.removeItems(player, item.getType(), 1);
             }
             stores.getUserStore().addGenerator(user, tier, event.getBlock().getLocation());
             i18n.get(langConfig.getPlacedGenerator())
