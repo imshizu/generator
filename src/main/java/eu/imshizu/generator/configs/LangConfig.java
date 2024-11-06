@@ -1,4 +1,4 @@
-package eu.altshizu.generator.configs;
+package eu.imshizu.generator.configs;
 
 import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.yaml.snakeyaml.YamlSnakeYamlConfigurer;

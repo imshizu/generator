@@ -1,9 +1,9 @@
-package eu.altshizu.generator.objects;
+package eu.imshizu.generator.objects;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.misc.BaseDaoEnabled;
 import com.j256.ormlite.table.DatabaseTable;
-import eu.altshizu.generator.utils.Locations;
+import eu.imshizu.generator.utils.Locations;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -1,12 +1,12 @@
-package eu.altshizu.generator.database.stores;
+package eu.imshizu.generator.database.stores;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
-import eu.altshizu.generator.database.BaseStore;
-import eu.altshizu.generator.database.StoreManager;
-import eu.altshizu.generator.objects.Generator;
-import eu.altshizu.generator.objects.User;
+import eu.imshizu.generator.database.BaseStore;
+import eu.imshizu.generator.database.StoreManager;
+import eu.imshizu.generator.objects.Generator;
+import eu.imshizu.generator.objects.User;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -39,6 +39,30 @@ public class UserStore extends BaseStore<Integer, User> {
         created.setName(player.getName());
         persist(created);
         return created;
+    }
+
+    /**
+     * Update the user's data in the database.
+     */
+    public void updateData(User user, String data, double value) {
+        switch (data) {
+            case "slots":
+                user.setSlots(user.getSlots() + (int) value);
+                break;
+            case "multiplier":
+                user.setMultiplier(user.getMultiplier() + value);
+                break;
+            case "level":
+                user.setLevel(user.getLevel() + (int) value);
+                break;
+            case "usedSlots":
+                user.setUsedSlots(user.getUsedSlots() + (int) value);
+                break;
+            case "xp":
+                user.setXp(user.getXp() + (int) value);
+                break;
+        }
+        persist(user);
     }
 
     /**
@@ -90,6 +114,27 @@ public class UserStore extends BaseStore<Integer, User> {
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;
+        }
+    }
+
+    /**
+     * Get the amount of generators a user has of a specific tier.
+     *
+     * @param user      the user to check
+     * @param tier      the tier of the generator to check for
+     */
+    public int getAmount(User user, int tier) {
+        try {
+            Dao<Generator, Integer> generatorDao = stores.getGeneratorStore().getDao();
+            QueryBuilder<Generator, Integer> queryBuilder = generatorDao.queryBuilder();
+            Where<Generator, Integer> where = queryBuilder.where();
+            where.eq("user", user).and().eq("tier", tier);
+
+            Generator generator = generatorDao.queryForFirst(queryBuilder.prepare());
+            return generator != null ? generator.getAmount() : 0;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return 0;
         }
     }
 }

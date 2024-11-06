@@ -1,4 +1,4 @@
-package eu.altshizu.generator.objects;
+package eu.imshizu.generator.objects;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.misc.BaseDaoEnabled;

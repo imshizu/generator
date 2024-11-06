@@ -1,5 +1,5 @@
 name: Generator
 version: '${version}'
-main: eu.altshizu.generator.Generator
-author: altshizu
+main: eu.imshizu.generator.Generator
+author: Mikkel
 description: A generator plugin built mainly for SuperAwesome servers.

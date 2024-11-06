@@ -3,7 +3,7 @@
  * Contains information about generator's tier and material.
  * Also, contains methods which enable certain operations on the Generator object.
  */
-package eu.altshizu.generator.objects;
+package eu.imshizu.generator.objects;
 
 import eu.okaeri.commons.bukkit.item.ItemStackBuilder;
 import lombok.Getter;

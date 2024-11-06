@@ -1,4 +1,4 @@
-package eu.altshizu.generator.database;
+package eu.imshizu.generator.database;
 
 import com.j256.ormlite.dao.Dao;
 import lombok.Getter;

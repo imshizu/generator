@@ -1,4 +1,4 @@
-package eu.altshizu.generator.database;
+package eu.imshizu.generator.database;
 
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
@@ -7,10 +7,11 @@ import com.j256.ormlite.logger.LogBackendType;
 import com.j256.ormlite.logger.LoggerFactory;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import eu.altshizu.generator.Generator;
-import eu.altshizu.generator.database.stores.GeneratorStore;
-import eu.altshizu.generator.database.stores.UserStore;
-import eu.altshizu.generator.objects.User;
+import eu.imshizu.generator.Generator;
+import eu.imshizu.generator.configs.GensConfig;
+import eu.imshizu.generator.database.stores.GeneratorStore;
+import eu.imshizu.generator.database.stores.UserStore;
+import eu.imshizu.generator.objects.User;
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.injector.annotation.PostConstruct;
 import eu.okaeri.platform.core.annotation.Component;
@@ -26,6 +27,7 @@ import java.io.File;
 public class StoreManager {
 
     private final @Inject Generator plugin;
+    private final @Inject GensConfig gensConfig;
 
     private UserStore userStore;
     private GeneratorStore generatorStore;
@@ -33,8 +35,9 @@ public class StoreManager {
     private @Getter ConnectionSource connectionSource;
 
 
-    public StoreManager(@Inject Generator plugin) {
+    public StoreManager(@Inject Generator plugin, @Inject GensConfig gensConfig) {
         this.plugin = plugin;
+        this.gensConfig = gensConfig;
     }
 
     /**
@@ -51,13 +54,13 @@ public class StoreManager {
             connectionSource = new JdbcConnectionSource(getConnectionUrl());
 
             TableUtils.createTableIfNotExists(connectionSource, User.class);
-            TableUtils.createTableIfNotExists(connectionSource, eu.altshizu.generator.objects.Generator.class);
+            TableUtils.createTableIfNotExists(connectionSource, eu.imshizu.generator.objects.Generator.class);
         } catch (Exception exception) {
             exception.printStackTrace();
         }
 
         this.userStore = new UserStore(DaoManager.createDao(connectionSource, User.class), this);
-        this.generatorStore = new GeneratorStore(DaoManager.createDao(connectionSource, eu.altshizu.generator.objects.Generator.class), this);
+        this.generatorStore = new GeneratorStore(DaoManager.createDao(connectionSource, eu.imshizu.generator.objects.Generator.class), this, gensConfig);
     }
 
     /**

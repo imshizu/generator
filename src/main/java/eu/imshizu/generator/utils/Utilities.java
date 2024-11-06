@@ -1,4 +1,4 @@
-package eu.altshizu.generator.utils;
+package eu.imshizu.generator.utils;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

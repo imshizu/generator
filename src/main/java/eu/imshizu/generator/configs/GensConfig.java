@@ -1,6 +1,6 @@
-package eu.altshizu.generator.configs;
+package eu.imshizu.generator.configs;
 
-import eu.altshizu.generator.objects.Global;
+import eu.imshizu.generator.objects.Global;
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.yaml.snakeyaml.YamlSnakeYamlConfigurer;
 import eu.okaeri.platform.core.annotation.Configuration;

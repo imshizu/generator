@@ -1,7 +1,7 @@
-package eu.altshizu.generator.commands;
+package eu.imshizu.generator.commands;
 
-import eu.altshizu.generator.configs.GensConfig;
-import eu.altshizu.generator.configs.LangConfig;
+import eu.imshizu.generator.configs.GensConfig;
+import eu.imshizu.generator.configs.LangConfig;
 import eu.okaeri.commands.annotation.*;
 import eu.okaeri.commands.bukkit.annotation.Async;
 import eu.okaeri.commands.bukkit.annotation.Permission;
