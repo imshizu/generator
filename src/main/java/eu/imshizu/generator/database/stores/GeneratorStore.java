@@ -1,12 +1,14 @@
 package eu.imshizu.generator.database.stores;
 
 import com.j256.ormlite.dao.Dao;
+import eu.imshizu.generator.configs.Config;
 import eu.imshizu.generator.configs.GensConfig;
 import eu.imshizu.generator.database.BaseStore;
 import eu.imshizu.generator.database.StoreManager;
 import eu.imshizu.generator.objects.Generator;
 import eu.imshizu.generator.objects.Global;
 import eu.imshizu.generator.utils.Locations;
+import lombok.Getter;
 import org.bukkit.Location;
 
 import java.util.Optional;
@@ -16,6 +18,7 @@ import java.util.Optional;
  */
 public class GeneratorStore extends BaseStore<Integer, Generator> {
     private final GensConfig gensConfig;
+    private final @Getter Config config;
 
     /**
      * Creates a new GeneratorStore instance.
@@ -23,9 +26,10 @@ public class GeneratorStore extends BaseStore<Integer, Generator> {
      * @param dao     DAO for Generator
      * @param stores  store manager instance
      */
-    public GeneratorStore(Dao<Generator, Integer> dao, StoreManager stores, GensConfig gensConfig) {
+    public GeneratorStore(Dao<Generator, Integer> dao, StoreManager stores, GensConfig gensConfig, Config config) {
         super(dao, stores);
         this.gensConfig = gensConfig;
+        this.config = config;
     }
 
     /**
@@ -75,5 +79,15 @@ public class GeneratorStore extends BaseStore<Integer, Generator> {
         } else {
             delete(generator.getId());
         }
+    }
+
+    /**
+     * Retrieve the upgrade cost for this generator.
+     * The cost is calculated based on the tier of the generator.
+     *
+     * @return the upgrade cost for this generator
+     */
+    public double getUpgradeCost(Generator generator) {
+        return (config.getStartPrice() * Math.pow(config.getPriceIncrease(), generator.getTier()) * generator.getAmount());
     }
 }

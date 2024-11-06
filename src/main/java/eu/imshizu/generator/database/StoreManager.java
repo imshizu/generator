@@ -36,7 +36,6 @@ public class StoreManager {
 
     private @Getter ConnectionSource connectionSource;
 
-
     public StoreManager(@Inject Generator plugin, @Inject GensConfig gensConfig, @Inject Config config) {
         this.plugin = plugin;
         this.gensConfig = gensConfig;
@@ -45,7 +44,6 @@ public class StoreManager {
 
     /**
      * Initializes the database connection and creates the necessary tables if they do not exist.
-     *
      */
     @SneakyThrows
     @PostConstruct
@@ -63,7 +61,7 @@ public class StoreManager {
         }
 
         this.userStore = new UserStore(DaoManager.createDao(connectionSource, User.class), this, config);
-        this.generatorStore = new GeneratorStore(DaoManager.createDao(connectionSource, eu.imshizu.generator.objects.Generator.class), this, gensConfig);
+        this.generatorStore = new GeneratorStore(DaoManager.createDao(connectionSource, eu.imshizu.generator.objects.Generator.class), this, gensConfig, config);
     }
 
     /**
